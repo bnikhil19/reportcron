@@ -14,6 +14,7 @@ public class ServerProperties {
 		properties=new HashMap<String, String>();
 		BufferedReader in = new BufferedReader(new FileReader("/opt/properties/start.ini"));
 		//BufferedReader in = new BufferedReader(new FileReader("/home/nikhil/nikhil/pem/api.ini"));
+		//BufferedReader in = new BufferedReader(new FileReader("/home/nikhil/nikhil/pem/apicopy.ini"));
 		String line = "";
 		while ((line = in.readLine()) != null) {
 			if(!(line.contains("#")) && (!(line.equals("")))){

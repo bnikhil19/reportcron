@@ -7,6 +7,8 @@ import com.igp.reports.util.Report;
 
 import java.util.List;
 
+import static com.igp.reports.util.HtmlGenerator.toHtmlHeading;
+
 public class NewRepeatMain implements Report
 {
 	public String start(boolean isReport, int interval) throws Exception
@@ -14,18 +16,16 @@ public class NewRepeatMain implements Report
 		System.out.printf("started NewRepeatNonIndiaMain {%s}\n",Main.tnxId);
 		List<Row> rowList = NewRepeatUtil.getData(interval);
 		String finalTable;
+
+		finalTable = toHtmlHeading("New/Repeat orders (India) : ", 4);
+
 		if(!rowList.isEmpty()){
-			finalTable = HtmlGenerator.toHtmlTable(rowList);
+			finalTable += HtmlGenerator.toHtmlTable(rowList);
 
 		}else{
-			finalTable = "No data.";
+			finalTable += "No data.";
 		}
-		//System.out.println(finalTable);
-		if(!isReport)
-		{
-			//MailUtil.sendGenericMail("" , "Test Mail", finalTable, "nikhil.bonte@indiangiftsportal.com", true);
-		}
-		System.out.printf("ended NewRepeatNonIndiaMain {%s}\n",Main.tnxId);
+
 		return finalTable;
 	}
 }

@@ -82,4 +82,8 @@ public class DomesticUtil
 		return rowListList;
 	}
 
+	/*static List<List<Row>> filterThreshold(List<List<Row>> rowList){
+
+	}*/
+
 }

@@ -9,7 +9,6 @@ import com.igp.reports.newRepeat.NewRepeatMain;
 import com.igp.reports.newRepeatNonInd.NewRepeatNonIndiaMain;
 import com.igp.reports.orderDailyAOV.DailyAOVMain;
 import com.igp.reports.orderTypeAOV.TypeAOVMain;
-import com.igp.reports.productMappings.ProductMappinngMain;
 import com.igp.reports.util.Mail.MailUtil;
 import com.igp.reports.util.Report;
 import com.igp.reports.warehouseWiseOrders.WHWiseOrdersMain;
@@ -51,45 +50,45 @@ public class ReportMain implements Report
 		tableList.add(toHtmlHeading( strDate, 4));
 
 
-		tableList.add(toHtmlHeading("Orders/AOV : ", 4));
+		//tableList.add(toHtmlHeading("Orders/AOV : ", 4));
 		report = new DailyAOVMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Orders/AOV by type : ", 4));
+		//tableList.add(toHtmlHeading("Orders/AOV by type : ", 4));
 		report = new TypeAOVMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("New/Repeat orders (India) : ", 4));
+		//tableList.add(toHtmlHeading("New/Repeat orders (India) : ", 4));
 		report = new NewRepeatMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("New/Repeat orders (International) : ", 4));
+		//tableList.add(toHtmlHeading("New/Repeat orders (International) : ", 4));
 		report = new NewRepeatNonIndiaMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Discount Percentage : ", 4));
+		//tableList.add(toHtmlHeading("Discount Percentage : ", 4));
 		report = new DiscountMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Orders by origin/destination : ", 4));
+		//tableList.add(toHtmlHeading("Orders by origin/destination : ", 4));
 		report = new DomesticMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Top coupons used : ", 4));
+		//tableList.add(toHtmlHeading("Top coupons used : ", 4));
 		report = new CouponMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Warehouse wise orders : ", 4));
+		//tableList.add(toHtmlHeading("Warehouse wise orders : ", 4));
 		report = new WHWiseOrdersMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Hourly orders/revenue : ", 4));
+		//tableList.add(toHtmlHeading("Hourly orders/revenue : ", 4));
 		report = new HourlyOrdersMain();
 		tableList.add(report.start(true, interval));
 
-		tableList.add(toHtmlHeading("Rakhi freeshipping product mapping : ", 4));
+		/*tableList.add(toHtmlHeading("Rakhi freeshipping product mapping : ", 4));
 		report = new ProductMappinngMain();
-		tableList.add(report.start(true, interval));
+		tableList.add(report.start(true, interval));*/
 
 		tableList.add("</body></html>");
 
@@ -98,8 +97,8 @@ public class ReportMain implements Report
 			finalHtmlStr.append(item);
 		}
 
-		//MailUtil.sendGenericMail("" , "Test Mail(daily Report)", finalHtmlStr.toString(), "nikhil.bonte@indiangiftsportal.com", true);
-		MailUtil.sendGenericMail("" , "Orders Report", finalHtmlStr.toString(), "tarun.joshi@igp.com,priyesh.neema@igp.com,suditi.choudhary@indiangiftsportal.com,prakhar.geete@indiangiftsportal.com,nikhil.bonte@indiangiftsportal.com,", true);
+		MailUtil.sendGenericMail("" , "Test Mail(daily Report)", finalHtmlStr.toString(), "nikhil.bonte@indiangiftsportal.com", true);
+		//MailUtil.sendGenericMail("" , "Orders Report", finalHtmlStr.toString(), "priyesh.neema@igp.com,suditi.choudhary@indiangiftsportal.com,nikhil.bonte@indiangiftsportal.com,", true);
 		System.out.println();
 		System.out.println(finalHtmlStr);
 		System.out.println("ended ReportMain {"+Main.tnxId+"}\n");

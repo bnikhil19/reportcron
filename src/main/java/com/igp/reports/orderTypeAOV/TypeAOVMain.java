@@ -7,23 +7,24 @@ import com.igp.reports.util.Report;
 
 import java.util.List;
 
+import static com.igp.reports.util.HtmlGenerator.toHtmlHeading;
+
 public class TypeAOVMain implements Report
 {
 	public String start(boolean isReport, int interval) throws Exception{
 		System.out.printf("started TypeAOVMain {%s}\n",Main.tnxId);
 		List<Row> rowList = TypeAOVUtil.getData(interval);
 		String finalTable;
+
+		finalTable = toHtmlHeading("Orders/AOV by type : ", 4);
+
 		if(!rowList.isEmpty()){
-			finalTable = HtmlGenerator.toHtmlTable(rowList);
+			finalTable += HtmlGenerator.toHtmlTable(rowList);
 
 		}else{
-			finalTable = "No data for daily AOV.";
+			finalTable += "No data for daily AOV.";
 		}
-		//System.out.println(finalTable);
-		if(!isReport){
-			//MailUtil.sendGenericMail("" , "Test Mail", finalTable, "nikhil.bonte@indiangiftsportal.com", true);
-		}
-		System.out.printf("ended TypeAOVMain {%s}\n",Main.tnxId);
 		return finalTable;
 	}
+
 }

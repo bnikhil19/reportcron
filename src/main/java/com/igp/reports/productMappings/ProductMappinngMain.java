@@ -13,17 +13,16 @@ public class ProductMappinngMain implements Report
 		System.out.printf("started ProductMappinngMain {%s}\n",Main.tnxId);
 		List<Row> rowList = ProductMappinngUtil.getData(interval);
 		String finalTable;
+
+		finalTable = HtmlGenerator.toHtmlHeading("Rakhi freeshipping product mapping : ", 4);
 		if(!rowList.isEmpty()){
-			finalTable = HtmlGenerator.toHtmlTable(rowList);
+			finalTable += HtmlGenerator.toHtmlTable(rowList);
 
 		}else{
-			finalTable = "No data for freeshipping product mapping.";
+			finalTable += "No data for freeshipping product mapping.";
 		}
-		//System.out.println(finalTable);
-		if(!isReport){
-			//MailUtil.sendGenericMail("" , "Test Mail", finalTable, "nikhil.bonte@indiangiftsportal.com", true);
-		}
-		System.out.printf("ended ProductMappinngMain {%s}\n",Main.tnxId);
+
+		//System.out.printf("ended ProductMappinngMain {%s}\n",Main.tnxId);
 		return finalTable;
 	}
 }

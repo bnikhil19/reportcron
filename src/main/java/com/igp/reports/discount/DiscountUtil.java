@@ -9,10 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DiscountUtil
 {
+	private static final BigDecimal THRESHOLD = new BigDecimal("4");
 
 	public static List<Row> getData(int interval) throws Exception{
 		Connection connection = null;
@@ -51,10 +51,27 @@ public class DiscountUtil
 		return rowList;
 	}
 
-	static List<Row> filterThreshold(List<Row> rowList){
-		return rowList.stream()
-				.filter(row -> new BigDecimal(row.getColList().get(1)).compareTo(BigDecimal.valueOf(2)) <= 2)
-				.collect(Collectors.toList());
-	}
+		static List<Row> filterThreshold(List<Row> rowList){
+		//check if discount percent is  greater than OR equal to 4
 
+		int cnt = 0;
+		List<Row> filteredList = new ArrayList<>();
+
+		for(Row row : rowList){
+			if(cnt++ > 0){
+				if(new BigDecimal(row.getColList().get(1)).compareTo(THRESHOLD) >= 0 ){
+					filteredList.add(row);
+				}
+			}
+			if(!filteredList.isEmpty()){
+				filteredList.add(0,row);//adding heading row
+			}
+		}
+
+		return filteredList;
+
+		/*return rowList.stream()
+				.filter(row -> new BigDecimal(row.getColList().get(1)).compareTo(BigDecimal.valueOf(4)) >= 0 )
+				.collect(Collectors.toList());*/
+	}
 }

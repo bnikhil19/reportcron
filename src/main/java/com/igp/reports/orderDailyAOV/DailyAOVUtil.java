@@ -12,6 +12,8 @@ import java.util.List;
 public class DailyAOVUtil
 {
 
+	private static final int MIN = 1150;
+
 	public static List<Row> getData(int interval) throws Exception{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -50,5 +52,20 @@ public class DailyAOVUtil
 			Database.INSTANCE.closeConnection(connection);
 		}
 		return rowList;
+	}
+
+	static List<Row> filterThreshold(List<Row> rowList){
+		int cnt = 0;
+		List<Row> filteredList = new ArrayList<>();
+		for(Row row : rowList){
+			if(cnt++ > 0){
+				if(Integer.parseInt(row.getColList().get(2)) < MIN){
+					filteredList.add(row);
+				}
+			}else{
+				filteredList.add(row);//adding heading row
+			}
+		}
+		return filteredList;
 	}
 }

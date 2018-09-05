@@ -13,14 +13,12 @@ public class WHWiseOrdersMain implements Report
 		List<Row> rowList = WHWiseOrdersUtil.getData(interval);
 		String finalTable;
 
+		finalTable = HtmlGenerator.toHtmlHeading("Warehouse wise orders : ", 4);
 		if(!rowList.isEmpty()){
-			finalTable = HtmlGenerator.toHtmlTable(rowList);
+			finalTable += HtmlGenerator.toHtmlTable(rowList);
 
 		}else{
-			finalTable = HtmlGenerator.BREAK + "No data.";
-		}
-		if(!isReport){
-			//MailUtil.sendGenericMail("" , "Test Mail", finalTable, "nikhil.bonte@indiangiftsportal.com", true);
+			finalTable += HtmlGenerator.BREAK + "No data.";
 		}
 		return finalTable;
 	}

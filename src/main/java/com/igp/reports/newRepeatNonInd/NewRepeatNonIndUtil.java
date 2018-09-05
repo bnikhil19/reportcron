@@ -3,6 +3,7 @@ package com.igp.reports.newRepeatNonInd;
 import com.igp.reports.models.Row;
 import com.igp.reports.util.database.Database;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,8 @@ import java.util.List;
 
 public class NewRepeatNonIndUtil
 {
+	private final static BigDecimal MIN = new BigDecimal("35");
+	private final static BigDecimal MAX = new BigDecimal("45");
 
 	public static List<Row> getData(int interval) throws Exception{
 		Connection connection = null;
@@ -51,6 +54,33 @@ public class NewRepeatNonIndUtil
 			Database.INSTANCE.closeConnection(connection);
 		}
 		return rowList;
+	}
+
+
+	static List<Row> filterThreshold(List<Row> rowList){
+		/*return rowList.stream()
+				.filter(row -> {
+					BigDecimal perc = new BigDecimal(row.getColList().get(4));
+					if(perc.compareTo(MIN) < 0 && perc.compareTo(MIN) < 0){
+						return row;
+					}
+				})
+				.collect(Collectors.toList());*/
+		int cnt = 0;
+		List<Row> filteredList = new ArrayList<>();
+		for(Row row : rowList){
+			if(cnt++ > 0){
+				BigDecimal perc = new BigDecimal(row.getColList().get(4));
+				//if(perc.compareTo(MIN) >= 0 && perc.compareTo(MAX) <= 0){
+				if(perc.compareTo(MIN) <= 0){
+					filteredList.add(row);
+				}
+			}else{
+				filteredList.add(row);//adding heading row
+			}
+
+		}
+		return filteredList;
 	}
 
 }

@@ -11,6 +11,10 @@ import java.util.List;
 
 public class TypeAOVUtil
 {
+	private static final int THRESHOLD_IND_IND = 750;
+	private static final int THRESHOLD_IND_ABD = 1700;
+	private static final int THRESHOLD_INTL = 1250;
+
 
 	public static List<Row> getData(int interval) throws Exception{
 		Connection connection = null;
@@ -49,6 +53,30 @@ public class TypeAOVUtil
 			Database.INSTANCE.closeConnection(connection);
 		}
 		return rowList;
+	}
+
+	static List<Row> filterThreshold(List<Row> rowList){
+		int cnt = 0;
+		List<Row> filteredList = new ArrayList<>();
+		for(Row row : rowList){
+			if(cnt++ > 0){
+				String type = row.getColList().get(0);
+				int threshold;
+				switch (type.toLowerCase()){
+					case "indabd" : threshold = THRESHOLD_IND_ABD; break;
+					case "indind" : threshold = THRESHOLD_IND_IND; break;
+					case "intl" : threshold = THRESHOLD_INTL; break;
+					default: threshold = 0 ;break;
+				}
+				if(Integer.parseInt(row.getColList().get(2)) < threshold){
+					filteredList.add(row);
+				}
+
+			}else{
+				filteredList.add(row);//adding heading row
+			}
+		}
+		return filteredList;
 	}
 
 }
