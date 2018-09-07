@@ -10,6 +10,7 @@ import com.igp.reports.ops.OrderNonDelCourier.OrderNonDelCourierIndMain;
 import com.igp.reports.ops.OrderNonDelCourier.OrderNonDelCourierIntlMain;
 import com.igp.reports.ops.OrderNotShipWhWise.OrderNotShipWhWiseMain;
 import com.igp.reports.ops.OrderdispVDelIndia.OrderDispVDelIndMain;
+import com.igp.reports.ops.OrderdispVDelIndia.OrderDispVDelWhWiseMain;
 import com.igp.reports.ops.TempToOrder.TempToOrderMain;
 import com.igp.reports.orderDailyAOV.DailyAOVMain;
 import com.igp.reports.orderTypeAOV.TypeAOVMain;
@@ -103,6 +104,8 @@ public class Main
 						report = new TempToOrderMain(); break;
 					case "wh_orders":
 						report = new WHWiseOrdersMain(); break;
+					case "dis_v_del_wh":
+						report = new OrderDispVDelWhWiseMain(); break;
 					default:
 						System.out.println("No valid argument found.");
 						return;
